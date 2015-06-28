@@ -1,0 +1,35 @@
+/* custom styles */
+
+* {
+	color: #212121;
+}
+
+#mainnav {
+	background-color: #477725;
+
+}
+
+#mainnav a {
+		color: #FDE792;
+}
+
+#mainnav a:hover {
+	background-color: #D1570D;
+	color: #FDE792;
+}
+
+#jumbo {
+	background-image: url('../static/puppy.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 450px;
+	color: #FDE792;
+}
+
+.navbar-toggle {
+	background-color: #9C27B0;
+}
+
+body {
+  padding-top: 70px;
+}
