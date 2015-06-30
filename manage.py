@@ -81,6 +81,8 @@ def create_admin():
     db.session.commit()
 
 app.secret_key = 'super sssssecret'
+app.config['SESSION_TYPE'] = 'filesystem'
+
 if __name__ == '__main__':
     manager.secret_key = 'super sssssecret'
     app.config['SESSION_TYPE'] = 'filesystem'
