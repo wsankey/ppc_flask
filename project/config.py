@@ -50,7 +50,7 @@ class TestingConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     """Production configuration."""
-    SECRET_KEY = 'my_precious'
+    SECRET_KEY = '|\x9bnn\xbb?\xf3e\x8e\xf2\xba\xe9"z0\xbe\xc8\xe2\x8c\xfa\xa0\xa7\xb8l'
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/example'
     DEBUG_TB_ENABLED = False
