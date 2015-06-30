@@ -6,6 +6,8 @@
 #################
 
 import os
+import psycopg2
+import urlparse
 
 from flask import Flask, render_template
 from flask.ext.login import LoginManager
@@ -21,6 +23,18 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
+
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.wsankey,
+    password=url.Julia1020,
+    host=url.hostname,
+    port=url.port
+)
 #app.config.from_object(os.environ['APP_SETTINGS'])
 #print os.environ['APP_SETTINGS']
 
