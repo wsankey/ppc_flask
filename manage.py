@@ -19,8 +19,8 @@ COV.start()
 from project import app, db
 from project.models import User
 
-app.config.from_object(os.environ['APP_SETTINGS'])
-
+project.app.config.from_object(os.environ['APP_SETTINGS'])
+print os.environ['APP_SETTINGS']
 migrate = Migrate(app, db)
 manager = Manager(app)
 
