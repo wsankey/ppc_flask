@@ -22,7 +22,9 @@ from flask.ext.sqlalchemy import SQLAlchemy
 ################
 
 app = Flask(__name__)
-app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_TYPE'] = 'memcached'
+app.config['SECRET_KEY'] = 'super secret key'
+
 
 
 urlparse.uses_netloc.append("postgres")
