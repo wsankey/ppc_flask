@@ -82,4 +82,11 @@ def create_admin():
 
 
 if __name__ == '__main__':
+    manager.secret_key = 'super sssssecret'
+    app.config['SESSION_TYPE'] = 'filesystem'
+
+    sess.init_app(app)
+
     manager.run()
+
+
