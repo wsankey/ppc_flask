@@ -19,7 +19,7 @@ COV.start()
 from project import app, db
 from project.models import User, Artist
 
-project.config.from_object(os.environ['APP_SETTINGS'])
+#project.config.from_object(os.environ['APP_SETTINGS'])
 #print os.environ['APP_SETTINGS']
 
 migrate = Migrate(app, db)
