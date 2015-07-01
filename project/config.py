@@ -52,7 +52,7 @@ class ProductionConfig(BaseConfig):
     """Production configuration."""
     SECRET_KEY = '|\x9bnn\xbb?\xf3e\x8e\xf2\xba\xe9"z0\xbe\xc8\xe2\x8c\xfa\xa0\xa7\xb8l'
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/example'
+    SQLALCHEMY_DATABASE_URI = 'postgres://bmhguiqupztsrs:iKFc3cNixfBzbH9knqnjBTbNDG@ec2-107-20-223-116.compute-1.amazonaws.com:5432/dd0eglm7lr8a0f'
     DEBUG_TB_ENABLED = False
     STRIPE_SECRET_KEY = 'foo'
     STRIPE_PUBLISHABLE_KEY = 'bar'
