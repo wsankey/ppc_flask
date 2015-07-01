@@ -25,20 +25,8 @@ app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'memcached'
 app.config['SECRET_KEY'] = 'super secret key'
 
+app.config.from_object(os.environ['APP_SETTINGS'])
 
-
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
-
-conn = psycopg2.connect(
-    database=url.path[1:],
-    user=url.username,
-    password=url.password,
-    host=url.hostname,
-    port=url.port
-)
-#app.config.from_object(os.environ['APP_SETTINGS'])
-#print os.environ['APP_SETTINGS']
 
 ####################
 #### extensions ####
@@ -67,7 +55,7 @@ app.register_blueprint(artist_blueprint)
 #### flask-login ####
 ####################
 
-from project.models import User
+from project.models import User, Artist
 
 login_manager.login_view = "user.login"
 login_manager.login_message_category = "danger"

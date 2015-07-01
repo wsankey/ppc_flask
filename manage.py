@@ -17,9 +17,9 @@ COV = coverage.coverage(
 COV.start()
 
 from project import app, db
-from project.models import User
+from project.models import User, Artist
 
-#app.config.from_object(os.environ['APP_SETTINGS'])
+app.config.from_object(os.environ['APP_SETTINGS'])
 #print os.environ['APP_SETTINGS']
 
 migrate = Migrate(app, db)
@@ -80,13 +80,10 @@ def create_admin():
     )
     db.session.commit()
 
-app.secret_key = 'super sssssecret'
-app.config['SESSION_TYPE'] = 'filesystem'
+
+
 
 if __name__ == '__main__':
-    manager.secret_key = 'super sssssecret'
-    app.config['SESSION_TYPE'] = 'filesystem'
-
     manager.run()
 
 

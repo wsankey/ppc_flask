@@ -10,7 +10,7 @@ class BaseConfig(object):
     # main config
     SECRET_KEY = 'my_precious'
     SECURITY_PASSWORD_SALT = 'my_precious_two'
-    DEBUG = False
+    DEBUG = True
     BCRYPT_LOG_ROUNDS = 13
     WTF_CSRF_ENABLED = True
     DEBUG_TB_ENABLED = False
