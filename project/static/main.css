@@ -1,11 +1,14 @@
 /* custom styles */
 
-* {
+*, html, body {
 	color: #212121;
+	font-family: foco !important;
 }
-
 #mainnav {
-	background-color: #477725;
+	background-color: #193441;
+	border-bottom-width: 2px;
+	border-left-style: solid black;
+	padding-top: 20px;
 
 }
 
@@ -18,18 +21,38 @@
 	color: #FDE792;
 }
 
-#jumbo {
-	background-image: url('../static/puppy.jpg');
-	background-size: cover;
+#bg {
+	background-image: url('../static/petportrait.jpg');
+	background-size: 100%;
 	background-repeat: no-repeat;
-	height: 450px;
+	min-height: 500px;
+	width: 100%;
 	color: #FDE792;
+	padding-top: 30px;
+	font-family: foco, arial;
 }
 
 .navbar-toggle {
 	background-color: #9C27B0;
 }
 
-body {
-  padding-top: 70px;
+}
+.nav, .main {
+    text-align: center;
+}
+
+* {
+	font-family: foco;
+}
+#facewrap {
+	margin-bottom: 40px;
+	text-align: left;
+}
+#face-wrapper {
+   display: inline-block;
+}
+
+.face {
+   position: relative;
+   border: 10px solid #3E606F;
 }

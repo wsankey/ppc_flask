@@ -1,35 +1,63 @@
 {% extends "_base.html" %}
 {% block content %}
 
+<div class="row-fluid" id="bg" style="margin-top: 2em;">
+             <h1 style="padding-top: 20px;">Commission an artist to render your best friend</h1>
+        <a class="pull-left btn btn-warning" href="{{ url_for('user.register') }}" style="margin-top: 50px;">Join now!</a>
+</div>
+
 <div class="container" >
-        <h1><em>Commission an artist to render your best friend</em></h1>
-    <div class="jumbotron" id="jumbo">
-    <a class="pull-right btn btn-warning" href="{{ url_for('user.register') }}" style="margin-top: 150px;">Join now!</a>
-    </div>
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-12 col-md-12 col-lg-12" style="margin-top: 0px;">
         	<h2><strong>How it works</strong></h2>
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
         <img  src="{{ url_for('static', filename = 'artist.svg') }}" style="height:80px;">
             <h3>Find an artist whose style matches your own</h3>
-            <p>CSS is used for describing the presentation of web pages. The CSS tutorial section will help you learn the essentials of CSS, so that you can fine control the style and layout of your HTML document.</p>
+            <p>Browse through the artists of Pet Portrait Club who have been personally selected for their skill. Choose the artist whose work inspires you the most. Use the dropdown menus to find the size of the portrait that is right for you.</p>
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
         <img  src="{{ url_for('static', filename = 'upload.svg') }}" style="height:80px;">
             <h3>Upload your pet's picture and some notes</h3>
-            <p>Bootstrap is a powerful front-end framework for faster and easier web development. The Bootstrap tutorial section will help you learn the techniques of Bootstrap so that you can create web your own website with much less efforts.</p>
+            <p>During checkout you'll be asked to upload the picture(s) you want the artist to base the portrait on; also be sure to add some notes so that your portrait is as personalized as possible.</p>
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
         <img  src="{{ url_for('static', filename = 'gallery.svg') }}" style="height:80px;">
             <h3>Find a good place on your wall!</h3>
-            <p>The references section outlines all the standard HTML tags and CSS properties along with other useful references such as color names and values, symbols and character entities, web safe fonts, language codes, HTTP messages and much more.</p>
+            <p>You'll receive a message from us, and the FedEx tracking number, once the portrait is on it's way. Be sure to prepare that perfect spot on your wall. Congratulations!</p>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12">
-            <h2><strong>Artist Profiles</strong></h2>
+            <h2><strong>Artist Spotlight</strong></h2>
         </div>
+                    <div class="row" id="facewrap">
+                        <div class="col-lg-6 col-sm-6" >
+                            <span id="face-wrapper" >
+                              <img class="img-circle face" src="http://i.huffpost.com/gen/710151/thumbs/s-ERMAHGERD-MEME-large.jpg" width="200"/>
+                            </span>
+                        </div>
+                        <div class="col-lg-6 col-sm-6" >
+                            <h2>Artist one: brief bio</h2>
+                                    <div class="dropdown">
+                                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Portrait sizes available
+                                        <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#">Size 1: $100</a></li>
+                                        <li><a href="#">Size 2: $150</a></li>
+                                        <li><a href="#">Size 3: $200</a></li>
+                                      </ul>
+                                    </div>
+                        </div>
+                    </div>
         <div class="col-sm-12 col-md-12 col-lg-12">
-            <h2><strong>FAQ</strong></h2>
+            <h2><strong>Frequently Asked Questions</strong></h2>
+            <h3><em>What is Pet Portait's role in this?</em></h3>
+                <p>Pet Portrait Club was started by a group of folks who love their pets and wanted decent portraits made of them. It's a way to bring pet lovers and artists together. For this service PPC takes a small commission of each portrait sold.</p>
+            <h3><em>When will I get my portrait?</em></h3>
+                <p>Great portraits can't be rushed. We allow the artists up to one month to finish each portrait and each artist is not allowed to paint more than 3 portraits at one time.</p>
+            <h3><em>Can I communicate with the artist directly?</em></h3>
+                <p>No, we prevent the artist from being overwhelmed with emails/calls/etc. Any notes you want to pass on should be done through Pet Portrait Club.</p>
         </div>
     <hr>
     <div class="row">
