@@ -31,6 +31,7 @@ stripe_keys = {
 }
 stripe.api_key = stripe_keys['secret_key']
 app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 #app.config.from_object(os.environ['APP_SETTINGS'])
 
 
