@@ -29,12 +29,9 @@ stripe_keys = {
     'secret_key': os.environ['SECRET_KEY'],
     'publishable_key': os.environ['PUBLISHABLE_KEY']
 }
-
 stripe.api_key = stripe_keys['secret_key']
+#app.config.from_object(os.environ['APP_SETTINGS'])
 
-app.config.from_object(os.environ['APP_SETTINGS'])
-
-stripe.api_key = stripe_keys['secret_key']
 
 ####################
 #### extensions ####

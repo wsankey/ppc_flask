@@ -5,6 +5,7 @@ import os
 import unittest
 import coverage
 import datetime
+import stripe
 
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
@@ -19,8 +20,15 @@ COV.start()
 from project import app, db
 from project.models import User, Artist
 
-#project.config.from_object(os.environ['APP_SETTINGS'])
-#print os.environ['APP_SETTINGS']
+stripe_keys = {
+    'secret_key': os.environ['SECRET_KEY'],
+    'publishable_key': os.environ['PUBLISHABLE_KEY']
+}
+stripe.api_key = stripe_keys['secret_key']
+
+app.config['SESSION_TYPE'] = 'memcached'
+#app.config.from_object(os.environ['APP_SETTINGS'])
+
 
 migrate = Migrate(app, db)
 manager = Manager(app)

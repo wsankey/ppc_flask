@@ -6,7 +6,7 @@
 #################
 
 import datetime
-
+import stripe
 from flask import render_template, Blueprint, url_for, \
     redirect, flash, request
 from flask.ext.login import login_user, logout_user, \
@@ -84,4 +84,25 @@ def profile():
             flash('Password change was unsuccessful.', 'danger')
             return redirect(url_for('artist.profile'))
     return render_template('artist/profile.html', form=form)
+
+
+@artist_blueprint.route('/charge', methods=['POST'])
+def charge():
+    # Amount in cents
+    amount = 500
+
+    customer = stripe.Customer.create(
+        email='customer@example.com',
+        card=request.form['stripeToken']
+    )
+
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Flask Charge'
+    )
+
+    return render_template('charge.html', amount=amount)
+
 
