@@ -8,6 +8,7 @@
 import os
 import psycopg2
 import urlparse
+import stripe
 
 from flask import Flask, render_template
 from flask.ext.login import LoginManager
@@ -23,10 +24,12 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'memcached'
-app.config['SECRET_KEY'] = 'super secret key'
+app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+app.config['PUBLISHABLE_KEY'] = os.environ['PUBLISHABLE_KEY']
 
 app.config.from_object(os.environ['APP_SETTINGS'])
 
+stripe.api_key = stripe_keys['secret_key']
 
 ####################
 #### extensions ####
