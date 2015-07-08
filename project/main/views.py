@@ -22,14 +22,14 @@ main_blueprint = Blueprint('main', __name__,)
 
 @main_blueprint.route('/')
 def home():
-    return render_template('main/index.html')
+    return render_template('main/index.html', key=stripe_keys['publishable_key'])
 
 @main_blueprint.route('/artists')
 @login_required
 def artists():
 	return render_template('main/artists.html')
 
-@app.route('/charge', methods=['POST'])
+@main_blueprint.route('/charge', methods=['POST'])
 def charge():
     # Amount in cents
     amount = 500

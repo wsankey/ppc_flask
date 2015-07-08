@@ -24,8 +24,13 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'memcached'
-app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
-app.config['PUBLISHABLE_KEY'] = os.environ['PUBLISHABLE_KEY']
+
+stripe_keys = {
+    'secret_key': os.environ['SECRET_KEY'],
+    'publishable_key': os.environ['PUBLISHABLE_KEY']
+}
+
+stripe.api_key = stripe_keys['secret_key']
 
 app.config.from_object(os.environ['APP_SETTINGS'])
 
