@@ -26,7 +26,8 @@ stripe_keys = {
 }
 stripe.api_key = stripe_keys['secret_key']
 
-app.config['SESSION_TYPE'] = 'memcached'
+
+app.config['SESSION_TYPE'] = 'filesystem'
 #app.config.from_object(os.environ['APP_SETTINGS'])
 
 
