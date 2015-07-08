@@ -32,8 +32,6 @@ stripe_keys = {
 stripe.api_key = stripe_keys['secret_key']
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
-    MAIL_USERNAME = os.environ['APP_MAIL_USERNAME']
-    MAIL_PASSWORD = os.environ['APP_MAIL_PASSWORD']
 #app.config.from_object(os.environ['APP_SETTINGS'])
 
 
