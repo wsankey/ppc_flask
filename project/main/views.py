@@ -24,6 +24,6 @@ def home():
     return render_template('main/index.html')
 
 @main_blueprint.route('/artists')
-@login_required
+#@login_required
 def artists():
 	return render_template('main/artists.html', key=stripe_keys['publishable_key'])
