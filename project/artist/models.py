@@ -1,14 +1,6 @@
-# project/models.py
+class Artist(db.Model):
 
-
-import datetime
-
-from project import db, bcrypt
-
-
-class User(db.Model):
-
-    __tablename__ = "users"
+    __tablename__ = "artists"
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, unique=True, nullable=False)
@@ -17,6 +9,8 @@ class User(db.Model):
     admin = db.Column(db.Boolean, nullable=False, default=False)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
+
+    style = db.Column(db.Column(String, unique=False, nullable=False))
 
     def __init__(self, email, password, confirmed,
                  admin=False, confirmed_on=None):
@@ -41,13 +35,3 @@ class User(db.Model):
 
     def __repr__(self):
         return '<email {}'.format(self.email)
-
-class Role(db.Model):
-    __tablename__ = 'roles'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True)
-    default = db.Column(db.Boolean, default=False, index=True)
-    permissions = db.Column(db.Integer)
-    users = db.relationship('User', backref='role', lazy='dynamic')
-

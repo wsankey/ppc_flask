@@ -7,6 +7,13 @@
 
 from flask import render_template, Blueprint
 from flask.ext.login import login_required
+import stripe
+import os
+stripe_keys = {
+    'secret_key': os.environ['SECRET_KEY'],
+    'publishable_key': os.environ['PUBLISHABLE_KEY']
+}
+stripe.api_key = stripe_keys['secret_key']
 
 ################
 #### config ####

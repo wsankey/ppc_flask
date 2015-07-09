@@ -28,8 +28,7 @@ stripe.api_key = stripe_keys['secret_key']
 
 
 app.config['SESSION_TYPE'] = 'filesystem'
-#app.config.from_object(os.environ['APP_SETTINGS'])
-
+app.config.from_object(os.environ['APP_SETTINGS'])
 
 migrate = Migrate(app, db)
 manager = Manager(app)
@@ -88,9 +87,6 @@ def create_admin():
         confirmed_on=datetime.datetime.now())
     )
     db.session.commit()
-
-
-
 
 if __name__ == '__main__':
     manager.run()
