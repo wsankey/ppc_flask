@@ -1,6 +1,4 @@
 # manage.py
-
-
 import os
 import unittest
 import coverage
@@ -18,16 +16,17 @@ COV = coverage.coverage(
 COV.start()
 
 from project import app, db
-from project.models import User
+from project.models import User, Role
+
 stripe_keys = {
     'secret_key': os.environ['SECRET_KEY'],
     'publishable_key': os.environ['PUBLISHABLE_KEY']
 }
+
 stripe.api_key = stripe_keys['secret_key']
-
-
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config.from_object(os.environ['APP_SETTINGS'])
+
 
 migrate = Migrate(app, db)
 manager = Manager(app)
