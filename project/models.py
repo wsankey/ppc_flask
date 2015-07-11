@@ -17,6 +17,7 @@ class User(db.Model):
     admin = db.Column(db.Boolean, nullable=False, default=False)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 
     def __init__(self, email, password, confirmed,
                  admin=False, confirmed_on=None):
@@ -41,6 +42,19 @@ class User(db.Model):
 
     def __repr__(self):
         return '<email {}'.format(self.email)
+'''
+User Roles:
+    Anonymous:  User who is not logged in. Cannot see artists
+    User:       Allowed to view artists and make purchases
+    Artist:     Allowed to view artists/make purchases/create products
+    Admin:      Full access.
+
+    The following are per the Flask Web Development book, page 112
+'''
+class Permission:
+    BUY = 0x01
+    SELL = 0x02
+    ADMINISTER = 0x03
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -50,4 +64,20 @@ class Role(db.Model):
     default = db.Column(db.Boolean, default=False, index=True)
     permissions = db.Column(db.Integer)
     users = db.relationship('User', backref='role', lazy='dynamic')
+
+    @staticmethod
+    def insert_roles():
+            roles = {
+                'User': (Permission.BUY, True),
+                'Artist': (Permission.BUY | Permission.SELL, True),
+                'Admin': (0xff, False)
+            }
+            for r in roles:
+                role = Role.query.filter_by(name=r).first()
+                if role is None:
+                    role = Role(name=r)
+                role.permissions = roles[r][0]
+                role.default = roles[r][1]
+                db.session.add(role)
+            db.session.commit()
 

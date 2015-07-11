@@ -62,7 +62,7 @@ app.register_blueprint(artist_blueprint)
 #### flask-login ####
 ####################
 
-from project.models import User, Artist
+from project.models import User
 
 login_manager.login_view = "user.login"
 login_manager.login_message_category = "danger"

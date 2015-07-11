@@ -18,8 +18,7 @@ COV = coverage.coverage(
 COV.start()
 
 from project import app, db
-from project.models import User, Artist
-
+from project.models import User
 stripe_keys = {
     'secret_key': os.environ['SECRET_KEY'],
     'publishable_key': os.environ['PUBLISHABLE_KEY']

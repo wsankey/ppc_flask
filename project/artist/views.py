@@ -12,7 +12,6 @@ from flask import render_template, Blueprint, url_for, \
 from flask.ext.login import login_user, logout_user, \
     login_required, current_user
 
-from project.models import Artist
 from project import db, bcrypt
 from .forms import LoginForm, RegisterForm, ChangePasswordForm
 
