@@ -2,7 +2,7 @@
 
 
 from flask_wtf import Form
-from wtforms import TextField, PasswordField, SelectField
+from wtforms import TextField, PasswordField, SelectField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 
 from project.models import *
@@ -51,4 +51,10 @@ class ChangePasswordForm(Form):
             DataRequired(),
             EqualTo('password', message='Passwords must match.')
         ]
+    )
+
+class EditProfileForm(Form):
+    about_me = TextAreaField(
+        'about_me',
+        validators=[DataRequired(), Length(min=3, max=25)]
     )

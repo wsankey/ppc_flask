@@ -1,1 +1,35 @@
-<h1>Woohoo!</h1
+{% extends "_base.html" %}
+
+{% block content %}
+
+<h1>Your Artist Profile</h1>
+<br>
+
+{% if current_user.is_authenticated() %}
+  <p>Email: <strong>{{current_user.email}}</strong></p>
+  <p>Your current about me: {{current_user.about_me }}</p>
+{% endif %}
+
+<h2>Update Profile Information</h2>
+<form class="form-reset" role="form" method="post" action="">
+  {{ form.csrf_token }}
+  <p>
+    {{ form.about_me }}
+    <span class="error">
+      {% if form.about_me.errors %}
+        {% for error in form.password.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+    <button class="btn btn-success" type="submit">Update</button>
+  <p>
+</form>
+
+<h2>Change Password</h2>
+<br>
+
+
+
+{% endblock %}

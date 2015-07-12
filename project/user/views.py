@@ -17,8 +17,9 @@ from project.email import send_email
 from project.token import generate_confirmation_token, confirm_token
 from project.decorators import check_confirmed
 from project import db, bcrypt
-from .forms import LoginForm, RegisterForm, ChangePasswordForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm, EditProfileForm
 
+from project.models import *
 
 ################
 #### config ####
@@ -39,7 +40,6 @@ def register():
             email=form.email.data,
             password=form.password.data,
             confirmed=False,
-            role_id=form.role.data
         )
         db.session.add(profile)
         db.session.commit()
@@ -103,17 +103,17 @@ def profile():
 @login_required
 @check_confirmed
 def artist_profile():
-    form = ChangePasswordForm(request.form)
+    form = EditProfileForm(request.form)
     if form.validate_on_submit():
         user = User.query.filter_by(email=current_user.email).first()
         if user:
-            user.password = bcrypt.generate_password_hash(form.password.data)
+            user.about_me = form.about_me.data
             db.session.commit()
-            flash('Password successfully changed.', 'success')
-            return redirect(url_for('user.profile'))
+            flash('About me successfully changed.', 'success')
+            return redirect(url_for('profile.artist_profile'))
         else:
-            flash('Password change was unsuccessful.', 'danger')
-            return redirect(url_for('user.profile'))
+            flash('About me change was unsuccessful.', 'danger')
+            return redirect(url_for('profile.artist_profile'))
     return render_template('profile/artist_profile.html', form=form)
 
 @profile_blueprint.route('/confirm/<token>')
@@ -141,7 +141,7 @@ def unconfirmed():
     if current_user.confirmed:
         return redirect(url_for('main.home'))
     flash('Please confirm your account!', 'warning')
-    return render_template('user/unconfirmed.html')
+    return render_template('profile/unconfirmed.html')
 
 
 @profile_blueprint.route('/resend')
@@ -149,7 +149,7 @@ def unconfirmed():
 def resend_confirmation():
     token = generate_confirmation_token(current_user.email)
     confirm_url = url_for('user.confirm_email', token=token, _external=True)
-    html = render_template('user/activate.html', confirm_url=confirm_url)
+    html = render_template('profile/activate.html', confirm_url=confirm_url)
     subject = "Please confirm your email"
     send_email(current_user.email, subject, html)
     flash('A new confirmation email has been sent.', 'success')

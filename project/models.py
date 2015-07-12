@@ -62,14 +62,8 @@ class User(db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     products = db.relationship('Product', backref='artist', lazy='dynamic')
 
-    def __init__(self, email, password, confirmed,
-                 admin=False, confirmed_on=None):
-        self.email = email
-        self.password = bcrypt.generate_password_hash(password)
-        self.registered_on = datetime.datetime.now()
-        self.admin = admin
-        self.confirmed = confirmed
-        self.confirmed_on = confirmed_on
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
 
     def is_authenticated(self):
         return True
