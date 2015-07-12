@@ -7,6 +7,8 @@
 
 from flask import render_template, Blueprint
 from flask.ext.login import login_required
+from project.models import Role
+from project.decorators import admin_required, artist_required
 import stripe
 import os
 stripe_keys = {
@@ -31,6 +33,6 @@ def home():
     return render_template('main/index.html')
 
 @main_blueprint.route('/artists')
-#@login_required
+@login_required
 def artists():
 	return render_template('main/artists.html', key=stripe_keys['publishable_key'])
