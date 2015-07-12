@@ -88,4 +88,12 @@ class User(db.Model):
 class Product(db.Model):
     __tablename__ = "products"
     id = db.Column(db.Integer, primary_key=True)
+    style = db.Column(db.String, nullable=True)
+    price = db.Column(db.Integer, nullable=False)
+    artist_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
+
+
+
+
 
