@@ -16,23 +16,23 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         {% if current_user.confirmed and current_user.is_authenticated() and current_user.is_artist() %}
-          <li><a href="{{ url_for('user.artist_profile') }}">Profile</a></li>
+          <li><a href="{{ url_for('profile.artist_profile') }}">Profile</a></li>
 
         {% elif current_user.confirmed and current_user.is_authenticated() %}
-          <li><a href="{{ url_for('user.profile') }}">Profile</a></li>
+          <li><a href="{{ url_for('profile.profile') }}">Profile</a></li>
 
         {% elif current_user.is_authenticated() %}
-          <li><a href="{{ url_for('user.unconfirmed') }}">Confirm</a></li>
+          <li><a href="{{ url_for('profile.unconfirmed') }}">Confirm</a></li>
         {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if current_user.is_authenticated() %}
-          <li><a href="{{ url_for('user.logout') }}">Logout</a></li>
+          <li><a href="{{ url_for('profile.logout') }}">Logout</a></li>
           <li><a href="{{ url_for('main.artists') }}">Artists</a></li>
         {% else %}
           <li><a href="{{ url_for('main.artists') }}">Artists</a></li>
-          <li><a href="{{ url_for('user.register') }}">Sign up</a></li>
-          <li><a href="{{ url_for('user.login') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Login</a></li>
+          <li><a href="{{ url_for('profile.register') }}">Sign up</a></li>
+          <li><a href="{{ url_for('profile.login') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Login</a></li>
         {% endif %}
       </ul>
     </div>

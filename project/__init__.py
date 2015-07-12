@@ -54,9 +54,9 @@ db = SQLAlchemy(app)
 ####################
 
 from project.main.views import main_blueprint
-from project.user.views import user_blueprint
+from project.user.views import profile_blueprint
 app.register_blueprint(main_blueprint)
-app.register_blueprint(user_blueprint)
+app.register_blueprint(profile_blueprint)
 
 
 ####################
@@ -66,7 +66,7 @@ app.register_blueprint(user_blueprint)
 login_manager.login_view = "user.login"
 login_manager.login_message_category = "danger"
 
-
+from project.models import User
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.filter(User.id == int(user_id)).first()
@@ -92,4 +92,4 @@ def server_error_page(error):
 
 
 admin = Admin(app, name='Pet Portrait Club', template_mode='bootstrap3')
-#admin.add_view(ModelView(models.User, db.session))
+admin.add_view(ModelView(models.User, db.session))

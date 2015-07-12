@@ -24,41 +24,41 @@ from .forms import LoginForm, RegisterForm, ChangePasswordForm
 #### config ####
 ################
 
-user_blueprint = Blueprint('user', __name__,)
+profile_blueprint = Blueprint('profile', __name__,)
 
 
 ################
 #### routes ####
 ################
 
-@user_blueprint.route('/register', methods=['GET', 'POST'])
+@profile_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm(request.form)
     if form.validate_on_submit():
-        user = User(
+        profile = User(
             email=form.email.data,
             password=form.password.data,
             confirmed=False,
             role_id=form.role.data
         )
-        db.session.add(user)
+        db.session.add(profile)
         db.session.commit()
 
-        token = generate_confirmation_token(user.email)
-        confirm_url = url_for('user.confirm_email', token=token, _external=True)
-        html = render_template('user/activate.html', confirm_url=confirm_url)
+        token = generate_confirmation_token(profile.email)
+        confirm_url = url_for('profile.confirm_email', token=token, _external=True)
+        html = render_template('profile/activate.html', confirm_url=confirm_url)
         subject = "Please confirm your email for Pet Portrait Club"
-        send_email(user.email, subject, html)
+        send_email(profile.email, subject, html)
 
-        login_user(user)
+        login_user(profile)
 
         flash('A confirmation email has been sent via email.', 'success')
-        return redirect(url_for("user.unconfirmed"))
+        return redirect(url_for("profile.unconfirmed"))
 
-    return render_template('user/register.html', form=form)
+    return render_template('profile/register.html', form=form)
 
 
-@user_blueprint.route('/login', methods=['GET', 'POST'])
+@profile_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm(request.form)
     if form.validate_on_submit():
@@ -70,19 +70,19 @@ def login():
             return redirect(url_for('main.home'))
         else:
             flash('Invalid email and/or password.', 'danger')
-            return render_template('user/login.html', form=form)
-    return render_template('user/login.html', form=form)
+            return render_template('profile/login.html', form=form)
+    return render_template('profile/login.html', form=form)
 
 
-@user_blueprint.route('/logout')
+@profile_blueprint.route('/logout')
 @login_required
 def logout():
     logout_user()
     flash('You were logged out.', 'success')
-    return redirect(url_for('user.login'))
+    return redirect(url_for('profile.login'))
 
 
-@user_blueprint.route('/profile', methods=['GET', 'POST'])
+@profile_blueprint.route('/profile', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
 def profile():
@@ -97,10 +97,26 @@ def profile():
         else:
             flash('Password change was unsuccessful.', 'danger')
             return redirect(url_for('user.profile'))
-    return render_template('user/profile.html', form=form)
+    return render_template('profile/profile.html', form=form)
 
+@profile_blueprint.route('/artist/profile', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def artist_profile():
+    form = ChangePasswordForm(request.form)
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=current_user.email).first()
+        if user:
+            user.password = bcrypt.generate_password_hash(form.password.data)
+            db.session.commit()
+            flash('Password successfully changed.', 'success')
+            return redirect(url_for('user.profile'))
+        else:
+            flash('Password change was unsuccessful.', 'danger')
+            return redirect(url_for('user.profile'))
+    return render_template('profile/artist_profile.html', form=form)
 
-@user_blueprint.route('/confirm/<token>')
+@profile_blueprint.route('/confirm/<token>')
 @login_required
 def confirm_email(token):
     if current_user.confirmed:
@@ -119,7 +135,7 @@ def confirm_email(token):
     return redirect(url_for('main.home'))
 
 
-@user_blueprint.route('/unconfirmed')
+@profile_blueprint.route('/unconfirmed')
 @login_required
 def unconfirmed():
     if current_user.confirmed:
@@ -128,7 +144,7 @@ def unconfirmed():
     return render_template('user/unconfirmed.html')
 
 
-@user_blueprint.route('/resend')
+@profile_blueprint.route('/resend')
 @login_required
 def resend_confirmation():
     token = generate_confirmation_token(current_user.email)
