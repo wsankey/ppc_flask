@@ -12,7 +12,7 @@ from flask import render_template, Blueprint, url_for, \
 from flask.ext.login import login_user, logout_user, \
     login_required, current_user
 
-from project.models import User
+from project.models import *
 from project.email import send_email
 from project.token import generate_confirmation_token, confirm_token
 from project.decorators import check_confirmed
@@ -38,7 +38,8 @@ def register():
         user = User(
             email=form.email.data,
             password=form.password.data,
-            confirmed=False
+            confirmed=False,
+            role_id=form.role.data
         )
         db.session.add(user)
         db.session.commit()
@@ -46,7 +47,7 @@ def register():
         token = generate_confirmation_token(user.email)
         confirm_url = url_for('user.confirm_email', token=token, _external=True)
         html = render_template('user/activate.html', confirm_url=confirm_url)
-        subject = "Please confirm your email"
+        subject = "Please confirm your email for Pet Portrait Club"
         send_email(user.email, subject, html)
 
         login_user(user)

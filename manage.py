@@ -5,8 +5,13 @@ import coverage
 import datetime
 import stripe
 
+import flask_admin as admin
+from flask_admin.contrib import sqla 
+from flask_sqlalchemy import SQLAlchemy
+
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
+
 
 COV = coverage.coverage(
         branch=True,
@@ -85,6 +90,20 @@ def create_admin():
         confirmed_on=datetime.datetime.now())
     )
     db.session.commit()
+
+'''
+Flask Admin Instantiation
+
+def create_app():
+    app = Flask('flask_app')
+
+    admin = Admin()
+
+    admin.add_view(sqla.ModelView(models.User, db.session))    
+    admin.init_app(app)
+
+    return app
+'''
 
 if __name__ == '__main__':
     manager.run()
