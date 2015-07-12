@@ -15,14 +15,16 @@ from flask.ext.login import LoginManager
 from flask.ext.bcrypt import Bcrypt
 from flask_mail import Mail
 from flask.ext.debugtoolbar import DebugToolbarExtension
+
 from flask.ext.sqlalchemy import SQLAlchemy
-
-
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 ################
 #### config ####
 ################
 
 app = Flask(__name__)
+
 app.config['SESSION_TYPE'] = 'memcached'
 
 stripe_keys = {
@@ -61,8 +63,6 @@ app.register_blueprint(user_blueprint)
 #### flask-login ####
 ####################
 
-from project.models import User
-
 login_manager.login_view = "user.login"
 login_manager.login_message_category = "danger"
 
@@ -88,3 +88,8 @@ def page_not_found(error):
 @app.errorhandler(500)
 def server_error_page(error):
     return render_template("errors/500.html"), 500
+
+
+
+admin = Admin(app, name='Pet Portrait Club', template_mode='bootstrap3')
+#admin.add_view(ModelView(models.User, db.session))

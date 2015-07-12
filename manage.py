@@ -1,36 +1,31 @@
 # manage.py
+####################
+#### imports ####
+####################
 import os
 import unittest
 import coverage
 import datetime
 import stripe
 
-import flask_admin as admin
-from flask_admin.contrib import sqla 
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 
-
+####################
+#### configs ####
+####################
+'''
 COV = coverage.coverage(
         branch=True,
         include='project/*',
         omit=['*/__init__.py', '*/config/*']
     )
 COV.start()
-
-from project import app, db
+'''
 from project.models import User, Role
-
-stripe_keys = {
-    'secret_key': os.environ['SECRET_KEY'],
-    'publishable_key': os.environ['PUBLISHABLE_KEY']
-}
-
-stripe.api_key = stripe_keys['secret_key']
-app.config['SESSION_TYPE'] = 'filesystem'
-app.config.from_object(os.environ['APP_SETTINGS'])
+from project import app, db
 
 
 migrate = Migrate(app, db)
@@ -40,6 +35,9 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
 
+####################
+#### init vars ####
+####################
 @manager.command
 def test():
     """Runs the unit tests without coverage."""
@@ -91,21 +89,8 @@ def create_admin():
     )
     db.session.commit()
 
-'''
-Flask Admin Instantiation
 
-def create_app():
-    app = Flask('flask_app')
-
-    admin = Admin()
-
-    admin.add_view(sqla.ModelView(models.User, db.session))    
-    admin.init_app(app)
-
-    return app
-'''
 
 if __name__ == '__main__':
     manager.run()
-
 
