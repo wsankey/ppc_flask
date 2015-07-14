@@ -2,7 +2,6 @@
 An ecommerce system built in Flask. I used the RealPython
 Flask-Registration github project as a starting point. The following are
 their instructions.
-[![Build Status](https://travis-ci.org/realpython/flask-registration.svg?branch=master)](https://travis-ci.org/realpython/flask-registration)
 
 Starter app for managing users - login/logout, registration, and email confirmation.
 
